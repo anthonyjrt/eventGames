@@ -54,7 +54,10 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+          "@touch database/database.sqlite",
+          "php -r \"copy('.env.example', '.env');\"",
+          "@php artisan key:generate",
+          "@php artisan jwt:secret --force"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
