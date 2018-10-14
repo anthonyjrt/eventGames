@@ -55,10 +55,11 @@
     data(){
       return {
         searchQuery: '',
-        gridColumns: ['categories','libelle', 'pegi', 'nb_players'],
+        gridColumns: ['console','categories','libelle', 'pegi', 'nb_players'],
         gridData: [],
         myModel: "game",
         formModel: [
+          { fName: 'console_id', placeholder: 'Votre console', model:'form.console_id'},
           { fName: 'select', placeholder: 'Vos catégories', model:'form.select'},
       { fName: 'libelle', placeholder: 'Votre Libelle', model:'form.libelle'},
       { fName: 'pegi', placeholder: 'Votre Pegi', model:'form.pegi'},
@@ -66,7 +67,11 @@
 
         ],
         childForm: {
-          libelle: ''
+          libelle: '',
+          pegi: null,
+          nb_players: null,
+          console_id:null,
+          select: []
         },
 
       }

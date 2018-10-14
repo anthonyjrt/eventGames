@@ -18,6 +18,8 @@ class CreateGamesTable extends Migration
             $table->string('libelle');
             $table->integer('pegi');
             $table->tinyInteger('nb_players');
+            $table->unsignedInteger('console_id');
+            $table->foreign('console_id')->references('id')->on('consoles')->onDelete('cascade');
             $table->timestamps();
         });
     }

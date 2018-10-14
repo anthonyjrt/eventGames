@@ -13,10 +13,12 @@
     </thead>
     <tbody>
     <tr v-if="action == 1"><td v-for="(input, index) in formModel">
-      <input type="text" v-if="index+1 == formModel.length && input.fName != 'select'" :name="input.fName" :id="input.fName" :placeholder="input.placeholder" class="form-control"
+      <input type="text" v-if="index+1 == formModel.length && input.fName != 'select' && input.fName != 'console_id'" :name="input.fName" :id="input.fName" :placeholder="input.placeholder" class="form-control"
 
                                                v-model="form[input.fName]" v-on:keyup.enter="createModel" :loading="form.busy">
-      <input v-else-if="input.fName != 'select'" type="text" :name="input.fName" :id="input.fName" :placeholder="input.placeholder" class="form-control" v-model="form[input.fName]">
+      <input v-else-if="input.fName != 'select' && input.fName != 'console_id'" type="text" :name="input.fName" :id="input.fName" :placeholder="input.placeholder" class="form-control" v-model="form[input.fName]">
+
+      <multiselect v-if="input.fName == 'console_id'" v-model="form[input.fName]" :options="data3" placeholder="Sélectionner" label="libelle" track-by="id" @input="updateSimpleSelect"></multiselect>
 
       <multiselect v-if="input.fName == 'select'" v-model="form[input.fName]" selectedLabel="Sélectionné" deselectLabel="Déselectionner" selectLabel="Sélectionner" :options="data2" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Sélectionner" label="label" track-by="category_id" :preselect-first="true" @input="updateApprovers">
         <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" noResult="Pas de résultats!" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} options selected</span></template>
@@ -30,7 +32,11 @@
       <td v-for="key in columns" >
         <a v-if="key == 'name'">{{entry[key] | uppercase}}</a>
         <a v-else-if="key == 'age'">{{entry[key]}}</a>
-        <a v-else-if="key == 'categories'" v-for="category in key">{{entry[key][category]}}</a>
+        <div v-else-if="key == 'categories'" v-for="category in entry.categories">
+          <a>{{category.libelle}}</a>
+        </div>
+
+        <a v-else-if="key == 'console'">{{entry[key].libelle}}</a>
         <a v-else>{{entry[key] | capitalize}}</a>
       </td>
       <td v-if="action == 1">
@@ -75,6 +81,7 @@
     return {
       value: null,
       approvers: [],
+      simpleSelect: null,
       selectedCountries: [],
       countries: [],
       isLoading: false,
@@ -84,6 +91,7 @@
       sortOrders: sortOrders,
       data: [],
       data2: [],
+      data3: [],
       form: new Form(this.childForm) ,
       currentSort:'name',
       currentSortDir:'asc',
@@ -142,6 +150,15 @@
 
       this.approvers = approvers;
       console.log(this.approvers);
+    },
+    updateSimpleSelect(user) {
+      let simpleSelect = null;
+
+        simpleSelect = user.id;
+
+
+      this.simpleSelect = simpleSelect;
+      console.log("Console : "+this.simpleSelect);
     },
     limitText (count) {
       return `and ${count} other countries`
@@ -224,6 +241,9 @@
         if (response.data.modelRead){
           this.data = response.data.modelRead;
           this.data2 = response.data.modelRead2;
+          if (response.data.modelRead3){
+            this.data3 = response.data.modelRead3;
+          }
         }
         else {
           this.data = response.data;
@@ -238,12 +258,13 @@
         this.form.birthdate = this.backEndDateFormat(this.form.birthdate);
       if(this.approvers)
         this.form.select = this.approvers;
+      this.form.console_id = this.simpleSelect;
       console.log(this.form);
       await this.form.post('/api/'+this.myModel)
       .then(response => {
         this.form = this.form.originalData;
         console.log(response.data)
-        this.data.push(response.data);
+        //this.data.push(response.data);
         this.read(this.myModel);
         this.form = new Form(this.childForm);
       })

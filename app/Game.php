@@ -9,8 +9,14 @@ class Game extends Model
     protected $fillable = [
         'libelle',
         'pegi',
-        'nb_player'
+        'nb_player',
+        'console_id'
     ];
+
+    public function console()
+    {
+        return $this->hasOne(Console::class, 'id', 'console_id');
+    }
 
     public function categories()
     {

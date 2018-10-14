@@ -16,4 +16,11 @@ class ConsoleController extends Controller
     public function store(Request $request){
         Console::create($request);
     }
+    public function destroy($id)
+    {
+        $console = Console::findOrFail($id);
+        $console->delete();
+
+        return response()->json(['data' => 'Console supprimé avec succès!']);
+    }
 }

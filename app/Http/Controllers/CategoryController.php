@@ -16,4 +16,11 @@ class CategoryController extends Controller
     public function store(Request $request){
         Category::create($request->all());
     }
+    public function destroy($id)
+    {
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return response()->json(['data' => 'Catégorie supprimé avec succès!']);
+    }
 }
