@@ -1,7 +1,7 @@
 {
     "name": "anthonyjrt/eventGames",
     "description": "Logiciel de gestion de tournoi gaming",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-dev",
     "keywords": ["gestion","tournoi", "jeu", "gaming", "laravel", "vue"],
   "authors": [
     {
@@ -10,13 +10,13 @@
       "role": "Developer"
     }
   ],
-  "minimum-stability":"alpha",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/anthonyjrt/eventGames"
-    }
-  ],
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
   "license": "MIT",
     "type": "project",
     "require": {
