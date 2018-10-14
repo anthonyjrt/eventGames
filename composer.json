@@ -61,10 +61,12 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover",
-          "@touch database/database.sqlite",
+          "touch database/database.sqlite",
           "php -r \"copy('.env.example', '.env');\"",
           "@php artisan key:generate",
-          "@php artisan jwt:secret --force"
+          "@php artisan jwt:secret --force",
+          "@php artisan migrate",
+          "yarn"
         ],
         "post-create-project-cmd": [
           "php -r \"copy('.env.example', '.env');\"",
