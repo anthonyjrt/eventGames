@@ -13,16 +13,16 @@ Gestionnaire d'évènements gaming
 ## Installation
 -`git clone https://github.com/anthonyjrt/eventGames.git`
 
-Run `php artisan key:generate` and `php artisan jwt:secret`)
-- `touch database/database.sqlite`
-- `php artisan migrate`
-- `yarn` (Install [Yarn](https://yarnpkg.com/en/docs/install) if you don't have it.)
+Run `composer install`
 
 ## Usage
 
 #### Development
 
 ```bash
+# build 
+npm run dev
+
 # build and watch
 npm run watch
 
@@ -36,6 +36,9 @@ npm run hot
 npm run production
 ```
 
+### Laravel 
+
+`php artisan serve`
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
