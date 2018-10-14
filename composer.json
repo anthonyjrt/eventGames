@@ -1,5 +1,5 @@
 {
-    "name": "anthonyjrt/eventGames",
+    "name": "anthonyjrt/eventgames",
     "description": "Logiciel de gestion de tournoi gaming",
   "version": "1.0.0-dev",
     "keywords": ["gestion","tournoi", "jeu", "gaming", "laravel", "vue"],
