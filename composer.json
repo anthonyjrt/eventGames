@@ -10,6 +10,13 @@
       "role": "Developer"
     }
   ],
+  "minimum-stability":"alpha",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/anthonyjrt/eventGames"
+    }
+  ],
   "license": "MIT",
     "type": "project",
     "require": {
