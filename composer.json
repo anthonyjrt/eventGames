@@ -37,8 +37,7 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        },
-      "files": ["database/database.sqlite"]
+        }
     },
     "autoload-dev": {
         "psr-4": {
