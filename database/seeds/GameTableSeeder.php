@@ -13,11 +13,11 @@ class GameTableSeeder extends Seeder
     {
         $games = [
             [
-                'libelle' => 'Comix Zone',
-                'pegi' => 12,
-                'nb_players' => 1,
-                'categories' =>[1,6],
-                'console_id' => 4
+                'libelle' => 'Just Danse',
+                'pegi' => 3,
+                'nb_players' => 2,
+                'categories' =>[6,7],
+                'console_id' => 8
             ],
             [
                 'libelle' => 'Fifa 19',
@@ -44,7 +44,7 @@ class GameTableSeeder extends Seeder
                 'libelle' => 'Sonic 2',
                 'pegi' => 3,
                 'nb_players' => 2,
-                'categories' => [5,6],
+                'categories' => [6,5],
                 'console_id' => 4
             ],
             [

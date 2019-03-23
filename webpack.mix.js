@@ -5,14 +5,22 @@ const mix = require('laravel-mix')
 mix.config.vue.esModule = true
 
 mix
-  .js(['resources/assets/js/app.js',
-  'node_modules/vue-multiselect/dist/vue-multiselect.min.js'], 'public/js/app.js')
+  .js([
+    'resources/assets/js/app.js',
+    'node_modules/vue-multiselect/dist/vue-multiselect.min.js',
+    'node_modules/bootstrap4-toggle/js/bootstrap4-toggle.js',
+    'node_modules/bootstrap/dist/js/bootstrap.js',
+    'node_modules/axios/dist/axios.js'
+  ], 'public/js/app.js')
   .sass('resources/assets/sass/app.scss', 'public/css')
   .sourceMaps()
   //.disableNotifications()
-mix.styles([
-  'node_modules/vue-multiselect/dist/vue-multiselect.min.css'
-], 'public/css/all.css');
+mix.styles(
+  [
+    'node_modules/vue-multiselect/dist/vue-multiselect.min.css',
+    'node_modules/bootstrap4-toggle/css/bootstrap4-toggle.css'
+  ], 'public/css/all.css');
+mix.copy('resources/assets/img', 'public/img');
 
 if (mix.inProduction()) {
   mix.version()

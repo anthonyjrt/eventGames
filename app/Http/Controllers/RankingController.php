@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Player;
+use App\Ranking;
 use Illuminate\Http\Request;
 
-class TaskController extends Controller
+class RankingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $rankings = Ranking::with('player')->with('game')->orderBy('player_id', 'asc')->get();
+        return response()->json(compact('rankings'));
     }
 
     /**
@@ -34,7 +37,23 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $player = Player::with('games')->findOrFail(request('id'));
+        $player_n =$player->games->last();
+        $player_number = \request('id')."_1";
+        $last_ranking = Ranking::where('player_number', $player_number)->where('game_id', $player_n->pivot->game_id )->first();
+        if ($last_ranking == null){
+            for ($i = 1; $i <= $player_n->pivot->life;$i++){
+                $ranking = new Ranking();
+                $ranking->player_id = $player_n->pivot->player_id;
+                $ranking->game_id = $player_n->pivot->game_id;
+                $ranking->player_number = $ranking->player_id."_".$i;
+                $ranking->life = 1;
+                $ranking->score = 0;
+                $ranking->save();
+            }
+
+        }
+
     }
 
     /**

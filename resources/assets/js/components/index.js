@@ -5,7 +5,7 @@ import Button from './Button'
 import Checkbox from './Checkbox'
 import Notification from './Notification'
 import Table from './Table'
-import Multiselect from 'vue-multiselect'
+import Modal from './Modal'
 
 import { HasError, AlertError, AlertSuccess } from 'vform'
 
@@ -17,7 +17,7 @@ import { HasError, AlertError, AlertSuccess } from 'vform'
   Checkbox,
   Notification,
   Table,
-  Multiselect,
+  Modal,
   HasError,
   AlertError,
   AlertSuccess

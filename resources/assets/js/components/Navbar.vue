@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
-      <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
+      <router-link :to="{ name: user ? 'home' : 'fight' }" class="navbar-brand">
         {{ appName }}
       </router-link>
 
@@ -10,7 +10,7 @@
       </button>
 
       <div id="navbarToggler" class="collapse navbar-collapse">
-        <ul class="navbar-nav" v-if="user">
+        <ul class="navbar-nav" v-if="user && $route.name != 'fight'">
           <locale-dropdown/>
            <li class="nav-item">
 
@@ -31,14 +31,29 @@
              </router-link>
           </li>
           <li class="nav-item">
-
              <router-link :to="{ name: 'game' }" class="nav-link">
                {{ $t('games') }}
              </router-link>
           </li>
+          <li class="nav-item">
+             <router-link :to="{ name: 'fight_control' }" class="nav-link">
+               {{ $t('fights') }}
+             </router-link>
+          </li>
+          <li class="nav-item">
+             <router-link :to="{ name: 'ranking' }" class="nav-link">
+               {{ $t('ranking') }}
+             </router-link>
+          </li>
+          <li class="nav-item">
+
+             <router-link :to="{ name: 'treasury' }" class="nav-link">
+               {{ $t('treasury') }}
+             </router-link>
+          </li>
         </ul>
 
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto" v-if="$route.name != 'fight'">
           <!-- Authenticated -->
           <li v-if="user" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark"
@@ -91,7 +106,8 @@ export default {
     appName: window.config.appName
   }),
 
-  computed: mapGetters({
+  computed:
+    mapGetters({
     user: 'auth/user'
   }),
 

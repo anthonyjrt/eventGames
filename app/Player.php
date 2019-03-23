@@ -12,4 +12,8 @@ class Player extends Model
       'birthdate',
       'inGame'
     ];
+
+    public function games(){
+        return $this->belongsToMany('App\Game')->withPivot('life')->with('categories');
+    }
 }

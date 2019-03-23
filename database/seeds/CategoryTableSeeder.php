@@ -17,7 +17,8 @@ class CategoryTableSeeder extends Seeder
             "Course",
             "Football",
             "Plates-formes",
-            "Fils Rouge"
+            "Fils Rouge",
+            "Danse"
         ];
         foreach ($categories as $i){
             $c = new \App\Category();

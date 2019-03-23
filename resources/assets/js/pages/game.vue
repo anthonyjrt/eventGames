@@ -15,7 +15,7 @@
 
 
 
-                       <div classs="panel-body">
+                       <div class="panel-body">
     <form id="search" class="pull-right">
       {{ $t('search')}} <input name="query" v-model="searchQuery"><br/><br/>
     </form>

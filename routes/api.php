@@ -25,11 +25,16 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/password', 'Settings\PasswordController@update');
 
 });
+Route::resource('ranking', 'RankingController');
+Route::resource('fight', 'FightController');
 Route::resource('player', 'PlayerController');
 Route::resource('console', 'ConsoleController');
 Route::resource('category', 'CategoryController');
 Route::resource('game', 'GameController');
-Route::resource('task', 'TaskController');
+Route::get('fights', 'PlayerController@fightIndex')->name('player.fight_index');
+Route::get('treasury', 'PlayerController@treasury')->name('player.treasury');
+Route::get('control', 'FightController@control')->name('fight.control');
+
 
 Route::group(['middleware' => 'guest:api'], function () {
     Route::post('login', 'Auth\LoginController@login');

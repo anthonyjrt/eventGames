@@ -10,12 +10,16 @@ const Player = () => import('~/pages/player').then(m => m.default || m)
 const Console = () => import('~/pages/console').then(m => m.default || m)
 const Category = () => import('~/pages/category').then(m => m.default || m)
 const Game = () => import('~/pages/game').then(m => m.default || m)
+const Treasury = () => import('~/pages/treasury').then(m => m.default || m)
+const Fight = () => import('~/pages/fight').then(m => m.default || m)
+const FightControl = () => import('~/pages/fight_control').then(m => m.default || m)
+const Ranking = () => import('~/pages/ranking').then(m => m.default || m)
 const Settings = () => import('~/pages/settings/index').then(m => m.default || m)
 const SettingsProfile = () => import('~/pages/settings/profile').then(m => m.default || m)
 const SettingsPassword = () => import('~/pages/settings/password').then(m => m.default || m)
 
 export default [
-  { path: '/', name: 'welcome', component: Welcome },
+  { path: '/', name: 'fight', component: Fight },
 
   { path: '/login', name: 'login', component: Login },
   { path: '/register', name: 'register', component: Register },
@@ -27,6 +31,9 @@ export default [
   { path: '/consoles', name: 'console', component: Console },
   { path: '/categories', name: 'category', component: Category },
   { path: '/games', name: 'game', component: Game },
+  { path: '/treasury', name: 'treasury', component: Treasury },
+  { path: '/ranking', name: 'ranking', component: Ranking },
+  { path: '/fight', name: 'fight_control', component: FightControl },
   { path: '/settings',
     component: Settings,
     children: [

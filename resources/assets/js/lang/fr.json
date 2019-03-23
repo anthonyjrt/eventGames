@@ -55,5 +55,8 @@
   "games": "Jeux",
   "games_list": "Liste des jeux",
   "pegi": "Pegi",
-  "nb_players": "Nombre de joueurs"
+  "nb_players": "Nombre de joueurs",
+  "treasury": "Trésorerie",
+  "ranking": "Classement",
+  "fights": "Rencontres"
 }

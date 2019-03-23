@@ -20,6 +20,7 @@
     <form id="search" class="pull-right">
       {{ $t('search')}} <input name="query" v-model="searchQuery"><br/><br/>
     </form>
+      <button :disabled="!this.data" v-on:click="runFight" id="1" class="btn btn-success btn-xs" style="padding: 8px;">Démarrer le tournoi</button>
     <table-demo
       :myModel="myModel"
       :columns="gridColumns"
@@ -65,8 +66,7 @@
 
                                  <td>
   <button @click="initUpdate(player)" :id="player.id" class="btn btn-success btn-xs" style="padding:8px"><span class="glyphicon glyphicon-edit"></span></button>
-
-  <!--<button @click="deletePlayer(player.id)" class="btn btn-danger btn-xs" style="padding:8px"><span class="glyphicon glyphicon-trash"></span></button>
+<button @click="deletePlayer(player.id)" class="btn btn-danger btn-xs" style="padding:8px"><span class="glyphicon glyphicon-trash"></span></button>
 
                                  </td>
 
@@ -90,7 +90,7 @@
 
 
 
-         <div class="modal fade" tabindex="-1" role="dialog" id="update_player_model">
+  <!--       <div class="modal fade" tabindex="-1" role="dialog" id="update_player_model">
 
              <div class="modal-dialog" role="document">
 
@@ -102,7 +102,7 @@
 
                                  aria-hidden="true">&times;</span></button>
 
-                         <h4 class="modal-title">Update Player</h4>
+                         <h4 class="modal-title">Editer Joueur</h4>
 
                      </div>
 
@@ -160,15 +160,11 @@
 
                      </div>
 
-                 </div><!-- /.modal-content -->
+                 </div> /.modal-content -->
 
              </div><!-- /.modal-dialog -->
 
-         </div><!-- /.modal -->
 
-
-
-     </div>
 
 </template>
 
@@ -206,7 +202,7 @@
         },
 
         errors: [],
-
+        data: undefined,
         players: [],
 
         update_player: {},
@@ -221,14 +217,6 @@
         ]
 
       }
-
-    },
-
-    mounted()
-
-    {
-
-      this.readPlayers("player");
 
     },
     filters: {
@@ -247,6 +235,9 @@
         value = value.toString()
         return value.toLowerCase()
       }
+    }, mounted() {
+      this.fightIndex();
+
     },
     computed: {
       isDisabled() {
@@ -255,30 +246,25 @@
       }
     },
     methods: {
-      /*deletePlayer(index)
-
+      fightIndex()
       {
+        axios.get(baseUrl+'fights').then((response) => {
+            if (response.data.modelRead){
+              this.data = response.data.modelRead;
+              console.log(this.data);
 
-        let conf = confirm("Voulez-vous vraiment supprimer ce joueur?");
-        if (conf === true) {
+              this.data2 = response.data.modelRead2;
+              if (response.data.modelRead3){
+                this.data3 = response.data.modelRead3;
+              }
+            }
+            else {
+              this.data = response.data;
+              console.log(this.data.fights);
+            }
 
-
-
-          axios.delete(baseUrl+'player/' + index)
-
-            .then(response => {
-              this.readPlayers();
-            })
-
-            .catch(error => {
-
-
-
-            });
-
-        }
-
-      },*/
+          }
+        )},
 
       initAddPlayer()
 
@@ -292,14 +278,14 @@
 
       {
         this.form.birthdate = this.backEndDateFormat(this.form.birthdate);
-        console.log(this.form.birthdate);
+
         await this.form.post('/api/player')
           .then(response => {
             this.reset();
-            console.log(response.data)
-            this.players.push(response.data);
+
+            //this.players.push(response.data);
             $("#add_player_model").modal("hide");
-            this.readPlayers();
+            //this.readPlayers();
           })
           .catch((error) => {
             if (error.response.status === 403) {
@@ -322,14 +308,15 @@
         this.form.inGame = '';
       },
 
-        readPlayers(model)
+        runFight()
       {
-        axios.get(baseUrl+model).then((response) => {
+        axios.get(baseUrl+'fight/create').then((response) => {
             this.gridData = response.data;
+
       }
       )},
 
-      initUpdate(index)
+      /**initUpdate(index)
 
       {
 
@@ -341,58 +328,9 @@
 
         console.log(this.update_player);
 
-      },
-
-      updatePlayer()
-
-      {
-        var serverDate = this.backEndDateFormat(this.update_player.birthdate);
-        console.log(this.update_player);
-        axios.patch(baseUrl+'player/' + this.update_player.id, {
-
-          name: this.update_player.name,
-          firstname: this.update_player.firstname,
-          birthdate: serverDate
-
-        })
-
-          .then(response => {
+      },*/
 
 
-
-            $("#update_player_model").modal("hide");
-            this.readPlayers();
-
-
-          })
-
-          .catch(error => {
-
-            this.errors = [];
-
-            if (error.response.data.errors.name) {
-
-              this.errors.push(error.response.data.errors.name[0]);
-
-            }
-
-
-
-            if (error.response.data.errors.description) {
-
-              this.errors.push(error.response.data.errors.description[0]);
-
-            }
-
-          });
-
-      },
-      frontEndDateFormat: function(date) {
-        return moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY');
-      },
-      backEndDateFormat: function(date) {
-        return moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD');
-      }
 
     }
 

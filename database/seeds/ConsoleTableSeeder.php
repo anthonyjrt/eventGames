@@ -18,7 +18,8 @@ class ConsoleTableSeeder extends Seeder
             "Megadrive mini",
             "SNES",
             "PSOne",
-            "Pandora Box"
+            "Pandora Box",
+            "Wii"
         ];
         foreach ($consoles as $i){
             $c = new \App\Console();
