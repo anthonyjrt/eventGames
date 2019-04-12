@@ -18,7 +18,8 @@ mix
 mix.styles(
   [
     'node_modules/vue-multiselect/dist/vue-multiselect.min.css',
-    'node_modules/bootstrap4-toggle/css/bootstrap4-toggle.css'
+    'node_modules/bootstrap4-toggle/css/bootstrap4-toggle.css',
+    'node_modules/bootstrap-vue/dist/bootstrap-vue.css'
   ], 'public/css/all.css');
 mix.copy('resources/assets/img', 'public/img');
 

@@ -10,6 +10,9 @@
           <h3><span class="glyphicon glyphicon-dashboard"></span> Rencontres</h3> <br>
         </div>
         <div class="panel-body">
+          <b-form-checkbox v-model="checked" name="check-button" switch>
+            Switch Checkbox <b>(Checked: {{ checked }})</b>
+          </b-form-checkbox>
           <table  class="table table-striped">
             <thead class="thead-dark">
             <tr>
@@ -21,8 +24,8 @@
               <th>Résultat</th>
             </tr>
             </thead>
-            <tbody  v-for="(entry, index) in data">
-            <tr :id="entry.id">
+            <tbody  v-for="(entry, index) in data" >
+            <tr :id="entry.id" v-if="entry.rankings[0]">
               <td>
                 <div v-for="r in entry.rankings[0]">{{ r.libelle}}</div>
               </td>
@@ -47,8 +50,8 @@
                 <input checked v-else-if="entry.statut == 'En cours'" type="checkbox" :value="entry.statut" :id="entry.id"  @click="check($event, entry)">
               </td>
               <td>
-                <button class="btn-danger" @click="[result(entry.id,entry.rankings[0].id,entry.rankings[1].id, index), uncheck(entry.id)]">R</button>
-                <button class="btn-primary" @click="[result(entry.id,entry.rankings[1].id,entry.rankings[0].id, index), uncheck(entry.id)]">B</button>
+                <button class="btn-danger" @click="[uncheck(entry.id), result(entry.id,entry.rankings[0].id,entry.rankings[1].id, index)]">R</button>
+                <button class="btn-primary" @click="[uncheck(entry.id), result(entry.id,entry.rankings[1].id,entry.rankings[0].id, index)]">B</button>
               </td>
             </tr>
             </tbody>
@@ -93,7 +96,8 @@
         data2:[],
         benef:'',
         b:null,
-        counter:1
+        counter:1,
+        checked: false
 
       }
     },
@@ -147,7 +151,8 @@
         }
       },
       uncheck: function(checkbox){
-
+        document.getElementById(checkbox).checked = false;
+        alert(checkbox);
       },
       removeRow: function(id) {
         this.$delete(this.data, id)

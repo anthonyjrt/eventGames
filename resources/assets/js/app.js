@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
 import store from '~/store'
 import router from '~/router'
 import i18n from '~/plugins/i18n'
@@ -13,5 +14,6 @@ new Vue({
   i18n,
   store,
   router,
+  BootstrapVue,
   ...App
 });
